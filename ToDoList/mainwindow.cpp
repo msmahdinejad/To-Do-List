@@ -10,15 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-    QVBoxLayout * temp = new QVBoxLayout(this);
-    for(int i = 0; i < 10; i++)
-    {
-        QLabel * t = new QLabel("salamasklndsadakdjaksjdlaskdajsldkjksak");
-        temp->addWidget(t);
-    }
-
-    ui->scrollAreaWidgetContents->setLayout(temp);
 }
 
 MainWindow::~MainWindow()
