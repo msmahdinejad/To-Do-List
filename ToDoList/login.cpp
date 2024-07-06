@@ -153,9 +153,27 @@ void login::on_signupBotton_clicked()
 {
     if(checkSignupInputs())
     {
-        QSqlQuery query;
+        QString user, pass;
+        user = ui->usernameInSignup->text();
+        pass = ui->PasswordInSignup->text();
+        QSqlQuery query, query2, query3, query4;
         query.prepare("INSERT INTO people (username, password) VALUES ('" + ui->usernameInSignup->text()+ "', '" + ui->PasswordInSignup->text() + "')");
-        if (!query.exec())
+        query2.prepare("INSERT INTO list (name, user, color, removable) VALUES (?, ?, ?, ?)");
+        query2.addBindValue(user + "/star");
+        query2.addBindValue(user);
+        query2.addBindValue("#F4A261");
+        query2.addBindValue(0);
+        query3.prepare("INSERT INTO list (name, user, color, removable) VALUES (?, ?, ?, ?)");
+        query3.addBindValue(user + "/AssignedToMe");
+        query3.addBindValue(user);
+        query3.addBindValue("#973131");
+        query3.addBindValue(0);
+        query4.prepare("INSERT INTO list (name, user, color, removable) VALUES (?, ?, ?, ?)");
+        query4.addBindValue(user + "/IAssigned");
+        query4.addBindValue(user);
+        query4.addBindValue("#088395");
+        query4.addBindValue(0);
+        if (!query.exec() || !query2.exec() || !query3.exec() || !query4.exec())
         {
             QMessageBox::critical(this, "Error", query.lastError().text());
             return;
