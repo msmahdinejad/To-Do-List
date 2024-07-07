@@ -40,7 +40,7 @@ QPushButton:hover {
     <string/>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="check">
    <property name="geometry">
     <rect>
      <x>15</x>
@@ -73,7 +73,7 @@ QCheckBox::indicator:unchecked {
     <string/>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_2">
+  <widget class="QCheckBox" name="star">
    <property name="geometry">
     <rect>
      <x>335</x>
@@ -84,16 +84,16 @@ QCheckBox::indicator:unchecked {
    </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox::indicator {
-    width:14px;
-    height: 14px;
+    width:18px;
+    height: 18px;
 }
 
 QCheckBox::indicator:unchecked {
-    image: url(:/images/star_unchecked.png);
+    image: url(:/images/uncheckedstar.png);
 }
 
 QCheckBox::indicator:checked {
-    image: url(:/images/star_checked.png);
+    image: url(:/images/checkedstar.png);
 }
 </string>
    </property>
@@ -101,7 +101,7 @@ QCheckBox::indicator:checked {
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="name">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -109,6 +109,21 @@ QCheckBox::indicator:checked {
      <width>291</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    
+    color: rgb(0, 0, 0);                   /* رنگ متن خاکستری تیره */
+    
+    border-radius: 10px;           /* گوشه‌های گرد */
+    
+    font-size: 12px;               /* اندازه فونت */
+    font-weight: bold;             /* وزن فونت */
+    text-align: center;            /* تراز متن */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);  /* سایه متن */
+    
+}
+</string>
    </property>
    <property name="text">
     <string>TextLabel</string>
