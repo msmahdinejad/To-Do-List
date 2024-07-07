@@ -18,13 +18,17 @@ private:
     QVBoxLayout * layout;
     QSqlDatabase DB;
     QString name;
-    QString color;
     QString user;
+    QString color;
     int removable;
     LinkList<Task> * tasks;
 
 public:
-    TaskList(QString name, QString color, QString user, int removable = 1, QWidget *parent = nullptr);
+    void operator << (QString taskName)
+    {
+        addTask(taskName);
+    }
+    TaskList(QString name, QString user, QString color, int removable = 1, QWidget *parent = nullptr);
     ~TaskList();
     void addTask(QString taskName);
     void removeTask(int id);
@@ -35,6 +39,7 @@ public:
     LinkList<Task> * getTasks();
     void loadData();
     void saveList();
+    int & getRemovable();
 
 private slots:
     void on_pushButton_clicked();

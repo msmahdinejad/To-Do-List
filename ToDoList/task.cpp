@@ -18,12 +18,14 @@ Task::Task(int id, QString user, QString list, QString name, int check, int star
     , ui(new Ui::Task)
 {
     ui->setupUi(this);
-    DB = QSqlDatabase::addDatabase("QSQLITE");
-    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
-    if(!DB.open())
-        qDebug() << "DB in Task page failed!";
-    else
-        qDebug() << "DB in Task page opened!";\
+    if(check == 1)
+    {
+        ui->check->setChecked(1);
+    }
+    if(star == 1)
+    {
+        ui->star->setChecked(1);
+    }
 
 }
 
@@ -34,35 +36,64 @@ Task::~Task()
 
 void Task::on_check_stateChanged(int s)
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Task page failed!";
+    else
+        qDebug() << "DB in Task page opened!";
     if(s == Qt::Checked)
     {
-        ui->name->setStyleSheet("QLabel { text-decoration: line-through; color: gray;}");
         check = 1;
-        QSqlQuery query;
-        query.prepare("UPDATE task SET check = ? WHERE ID = ?");
-        query.addBindValue(check);
-        query.addBindValue(ID);
-        if (!query.exec()) {
-            qDebug() << "Error updating check: " << query.lastError();
+        QSqlTableModel model;
+        model.setTable("task");
+        model.setFilter(QString("ID = %1").arg(ID));
+        model.select();
+
+        if (model.rowCount() == 1) {
+            model.setData(model.index(0, model.fieldIndex("check")), check);
+            if (!model.submitAll()) {
+                qDebug() << "Error updating check: " << model.lastError();
+            } else {
+                qDebug() << "Task updated successfully";
+            }
+        } else {
+            qDebug() << "Task not found or multiple tasks with the same ID";
         }
+        ui->name->setStyleSheet("QLabel { text-decoration: line-through; color: gray;}");
     }
     else
     {
-        ui->name->setStyleSheet("QLabel { text-decoration: none; color: black;}");
         check = 0;
-        QSqlQuery query;
-        query.prepare("UPDATE task SET check = ? WHERE ID = ?");
-        query.addBindValue(check);
-        query.addBindValue(ID);
-        if (!query.exec()) {
-            qDebug() << "Error updating check: " << query.lastError();
+        QSqlTableModel model;
+        model.setTable("task");
+        model.setFilter(QString("ID = %1").arg(ID));
+        model.select();
+
+        if (model.rowCount() == 1) {
+            model.setData(model.index(0, model.fieldIndex("check")), check);
+            if (!model.submitAll()) {
+                qDebug() << "Error updating check: " << model.lastError();
+            } else {
+                qDebug() << "Task updated successfully";
+            }
+        } else {
+            qDebug() << "Task not found or multiple tasks with the same ID";
         }
+        ui->name->setStyleSheet("QLabel { text-decoration: none; color: black;}");
     }
+    DB.close();
 }
 
 
 void Task::on_star_stateChanged(int s)
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Task page failed!";
+    else
+        qDebug() << "DB in Task page opened!";
     if(s == Qt::Checked)
     {
         star = 1;
@@ -85,10 +116,17 @@ void Task::on_star_stateChanged(int s)
             qDebug() << "Error updating star: " << query.lastError();
         }
     }
+    DB.close();
 }
 
 void Task::save()
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Task page failed!";
+    else
+        qDebug() << "DB in Task page opened!";
     QSqlQuery query;
     query.prepare("UPDATE task SET name = ?, caption = ?, assigncheck = ?, assignuser = ?, year = ?, month = ?, day = ? WHERE ID = ?");
     query.addBindValue(name);
@@ -102,16 +140,24 @@ void Task::save()
     if (!query.exec()) {
         qDebug() << "Error Save : " << query.lastError();
     }
+    DB.close();
 }
 void Task::remove()
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Task page failed!";
+    else
+        qDebug() << "DB in Task page opened!";
     QSqlQuery query;
     query.prepare("DELETE FROM task WHERE ID = ?");
     query.addBindValue(ID);
     if (!query.exec()) {
         qDebug() << "Error removing Task: " << query.lastError();
     }
-    delete ui;
+    DB.close();
+    hide();
 }
 QString & Task::getName(){return name;}
 QString & Task::getCaption(){return caption;}

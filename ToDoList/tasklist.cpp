@@ -2,26 +2,18 @@
 #include "ui_tasklist.h"
 #include <QPushButton>
 
-TaskList::TaskList(QString name, QString color, QString user, int removable, QWidget *parent)
+TaskList::TaskList(QString name, QString User, QString color, int removable, QWidget *parent)
     : QWidget(parent)
     , name(name)
+    , user(User)
     , color(color)
-    , user(user)
     , removable(removable)
     , ui(new Ui::TaskList)
 {
     ui->setupUi(this);
-    DB = QSqlDatabase::addDatabase("QSQLITE");
-    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
-    if(!DB.open())
-        qDebug() << "DB in Tasklist failed!";
-    else
-        qDebug() << "DB in Tasklist opened!";
-    
+    tasks = new LinkList<Task>();
 
     layout = new QVBoxLayout();
-    QPushButton * temp = new QPushButton("test");
-    layout->addWidget(temp);
     ui->scrollAreaWidgetContents->setLayout(layout);
 }
 
@@ -32,6 +24,12 @@ TaskList::~TaskList()
 
 void TaskList::saveList()
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Tasklist failed!";
+    else
+        qDebug() << "DB in Tasklist opened!";
     QSqlQuery query;
     query.prepare("INSERT INTO list (name, user, color, removable) VALUES (?, ?, ?, ?)");
     query.addBindValue(name);
@@ -50,12 +48,17 @@ void TaskList::loadData()
     while(tmp != 0)
     {
         node<Task> * tmp2 = tmp->getNext();
-        tmp->getData()->remove();
+        tmp->getData()->hide();
         tmp = tmp2;
     }
     tasks->deleteList();
 
-
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Tasklist failed!";
+    else
+        qDebug() << "DB in Tasklist opened!";
     QSqlQuery query2;
     if(name.contains("/star"))
     {
@@ -107,10 +110,17 @@ void TaskList::loadData()
             qDebug() << "task loaded succefully!";
         }
     }
+    ui->scrollAreaWidgetContents->setLayout(layout);
 }
 
 void TaskList::addTask(QString taskName)
 {
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Tasklist failed!";
+    else
+        qDebug() << "DB in Tasklist opened!";
     QSqlQuery query;
     query.prepare("INSERT INTO task (user, list, name) VALUES (?, ?, ?)");
     query.addBindValue(user);
@@ -148,6 +158,7 @@ void TaskList::addTask(QString taskName)
             qDebug() << "task loaded succefully!";
         }
     }
+    ui->scrollAreaWidgetContents->setLayout(layout);
 }
 void TaskList::removeTask(int id)
 {
@@ -177,7 +188,6 @@ void TaskList::removeTask(int id)
 void TaskList::deleteTaskList()
 {
     node<Task> * tmp = tasks->getHead();
-
     while(tmp != 0)
     {
         node<Task> * tmp2 = tmp->getNext();
@@ -185,7 +195,12 @@ void TaskList::deleteTaskList()
         tmp = tmp2;
     }
     tasks->deleteList();
-
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Tasklist failed!";
+    else
+        qDebug() << "DB in Tasklist opened!";
     QSqlQuery query;
     query.prepare("DELETE FROM list WHERE user = ? AND name = ?");
     query.addBindValue(user);
@@ -194,13 +209,13 @@ void TaskList::deleteTaskList()
         qDebug() << "Error removing list: " << query.lastError();
     }
 
-    delete ui;
+    hide();
 }
 QString & TaskList::getName(){return name;}
 QString & TaskList::getColor(){return color;}
 QString & TaskList::getUser(){return user;}
 LinkList<Task> * TaskList::getTasks(){return tasks;}
-
+int & TaskList::getRemovable(){return removable;}
 void TaskList::on_pushButton_clicked()
 {
     if(ui->lineEdit->text().isEmpty())

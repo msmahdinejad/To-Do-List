@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "userdata.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -13,13 +14,18 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+    UserData * MyData;
+
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(UserData * mydata, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
+    void on_tasklist_clicked(TaskList * taskList);
+    void on_pushButton_2_clicked();
 
 private:
+    QVBoxLayout * layout;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

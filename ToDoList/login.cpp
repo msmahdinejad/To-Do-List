@@ -1,6 +1,9 @@
 #include "login.h"
 #include "ui_login.h"
 
+#include "mainwindow.h"
+#include "userdata.h"
+
 login::login(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::login)
@@ -141,8 +144,9 @@ void login::on_loginBotton_clicked()
 {
     if(checkLoginInputs())
     {
-        // userWidget * UW = new userWidget(ui->usernameInLogIn->text());
-        // UW->show();
+        UserData * mydata = new UserData(ui->usernameInLogIn->text());
+        MainWindow * mainWindow = new MainWindow(mydata);
+        mainWindow->show();
         DB.close();
         this->hide();
     }

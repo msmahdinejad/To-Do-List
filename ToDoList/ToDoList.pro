@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     linklist.cpp \
+    listpushbotton.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     linklist.h \
+    listpushbotton.h \
     login.h \
     mainwindow.h \
     task.h \
@@ -26,6 +28,7 @@ HEADERS += \
     userdata.h
 
 FORMS += \
+    listpushbotton.ui \
     login.ui \
     mainwindow.ui \
     task.ui \

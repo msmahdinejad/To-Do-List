@@ -1,39 +1,38 @@
 #include "userdata.h"
 
-UserData::UserData(QString username)
+UserData::UserData(QString UserName)
 {
+    username = UserName;
     DB = QSqlDatabase::addDatabase("QSQLITE");
     DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
     if(!DB.open())
         qDebug() << "DB in userData failed!";
     else
         qDebug() << "DB in userData opened!";
-
-    QSqlQuery query2;
-    query2.prepare("SELECT * FROM list WHERE user = ?");
-    query2.addBindValue(username);
-    if (!query2.exec())
+    lists = new vector<TaskList *>();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM list WHERE user = ?");
+    query.addBindValue(username);
+    if (!query.exec())
     {
-        qDebug() << "Error read list : " << query2.lastError();
+        qDebug() << "Error read list : " << query.lastError();
     }
-    else
+    while(query.next())
     {
-        while(query2.next())
-        {
-            QString name = query2.value(0).toString();
-            QString user = query2.value(1).toString();
-            QString color = query2.value(2).toString();
-            int removable = query2.value(3).toInt();
-            TaskList * taskList = new TaskList(name, user, color, removable);
-            lists->push_back(taskList);
-            qDebug() << "list loaded succefully!";
-        }
+        QString name = query.value(0).toString();
+        QString user = query.value(1).toString();
+        QString color = query.value(2).toString();
+        int removable = query.value(3).toInt();
+        TaskList * taskList = new TaskList(name, user, color, removable);
+        lists->push_back(taskList);
+        qDebug() << "list loaded succefully!";
     }
 }
 void UserData::addList(QString name, QString color)
 {
     TaskList * taskList = new TaskList(name, username, color);
     taskList->saveList();
+    lists->push_back(taskList);
 }
 void UserData::removeList(QString name)
 {
