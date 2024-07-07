@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TaskList</class>
+ <widget class="QWidget" name="TaskList">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>559</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>641</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>639</width>
+      <height>489</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>510</y>
+     <width>41</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color:rgba(255, 255, 255, 0); /* Sets the background color */
+    color: white; /* Sets the text color */
+    border-radius: 2px; /* Rounds the corners */
+    padding: 9px; /* Adds padding */
+    font-size: 14px; /* Sets the font size */
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 150); /* Changes background color on hover */
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="im.qrc">
+     <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>27</width>
+     <height>27</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>510</y>
+     <width>591</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    background-color:rgba(255, 255, 255, 200); /* Sets the background color */
+    color: black; /* Sets the text color */
+    border-radius: 2px; /* Rounds the corners */
+    padding: 9px; /* Adds padding */
+    font-size: 16px; /* Sets the font size */
+}
+
+QLineEdit:hover {
+    background-color: rgba(255, 255, 255, 255); /* Changes background color on hover */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Add a task</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="im.qrc"/>
+ </resources>
+ <connections/>
+</ui>

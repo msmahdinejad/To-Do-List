@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>images/back1.jpg</file>
         <file>images/logo.png</file>
+        <file>images/checkedstar.png</file>
+        <file>images/uncheckedstar.png</file>
+        <file>images/plus.png</file>
     </qresource>
 </RCC>
