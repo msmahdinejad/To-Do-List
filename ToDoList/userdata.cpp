@@ -11,6 +11,7 @@ UserData::UserData(QString username)
 
     QSqlQuery query2;
     query2.prepare("SELECT * FROM list WHERE user = ?");
+    query2.addBindValue(username);
     if (!query2.exec())
     {
         qDebug() << "Error read list : " << query2.lastError();

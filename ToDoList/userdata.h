@@ -18,13 +18,12 @@ class UserData
     QSqlDatabase DB;
     QString username;
     QString password;
-    set<TaskList> * lists;
+    vector<TaskList *> * lists;
 public:
     UserData(QString username);
     void addList(QString name, QString color);
     void removeList(QString name);
-    set<QString> * getListnames();
-    map<QString, TaskList> * getLists();
+    vector<TaskList *> * getLists();
 };
 
 #endif // USERDATA_H
