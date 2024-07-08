@@ -1,6 +1,7 @@
 #include "tasklist.h"
 #include "ui_tasklist.h"
 #include <QPushButton>
+#include <QDateTime>
 
 TaskList::TaskList(QString name, QString User, QString color, int removable, QWidget *parent)
     : QWidget(parent)
@@ -15,6 +16,7 @@ TaskList::TaskList(QString name, QString User, QString color, int removable, QWi
 
     layout = new QVBoxLayout();
     ui->scrollAreaWidgetContents->setLayout(layout);
+    ui->SelectedTask->hide();
 }
 
 TaskList::~TaskList()
@@ -107,6 +109,7 @@ void TaskList::loadData()
             Task * task = new Task(id, user, list, name, check, star, caption, assigncheck, assignuser, year, month, day);
             tasks->push_front(task);
             layout->addWidget(task);
+            connect(task, &Task::buttonClicked, this, &TaskList::on_task_clicked);
             qDebug() << "task loaded succefully!";
         }
     }
@@ -155,6 +158,7 @@ void TaskList::addTask(QString taskName)
             Task * task = new Task(id, user, list, name, check, star, caption, assigncheck, assignuser, year, month, day);
             tasks->push_front(task);
             layout->addWidget(task);
+            connect(task, &Task::buttonClicked, this, &TaskList::on_task_clicked);
             qDebug() << "task loaded succefully!";
         }
     }
@@ -216,6 +220,10 @@ QString & TaskList::getColor(){return color;}
 QString & TaskList::getUser(){return user;}
 LinkList<Task> * TaskList::getTasks(){return tasks;}
 int & TaskList::getRemovable(){return removable;}
+void operator << (TaskList * taskList, QString taskName)
+{
+    taskList->addTask(taskName);
+}
 void TaskList::on_pushButton_clicked()
 {
     if(ui->lineEdit->text().isEmpty())
@@ -224,7 +232,56 @@ void TaskList::on_pushButton_clicked()
     }
     else
     {
-        addTask(ui->lineEdit->text());
+        this << ui->lineEdit->text();
     }
 }
 
+void TaskList::selectTask(Task * temp)
+{
+    selectedTask = temp;
+    ui->nameLineEdit->setText(temp->getName());
+    ui->caption->setText(temp->getCaption());
+    ui->assignUser->setText(temp->getAssignUser());
+    QDate t(temp->getDay(), temp->getMonth(), temp->getYear());
+    ui->dateEdit->setDate(t);
+    ui->SelectedTask->show();
+}
+
+bool TaskList::checkEditInputs()
+{
+    return true;
+}
+
+void TaskList::on_Delete_clicked()
+{
+    QMessageBox::StandardButton reply;
+    QString tmp ="Do you want to delete this task ?!";
+    reply = QMessageBox::question(this, "confirmation", tmp,
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        selectedTask->remove();
+    }
+    ui->SelectedTask->hide();
+}
+
+
+void TaskList::on_Edit_clicked()
+{
+    if(checkEditInputs())
+    {
+        selectedTask->setName(ui->nameLineEdit->text());
+        selectedTask->setCaption(ui->caption->text());
+        selectedTask->setAssignUser(ui->assignUser->text());
+        if(!ui->assignUser->text().isEmpty() && !ui->assignUser->text().contains("/"))
+            selectedTask->setAssignCheck(1);
+        selectedTask->setDay(ui->dateEdit->date().day());
+        selectedTask->setMonth(ui->dateEdit->date().month());
+        selectedTask->setYear(ui->dateEdit->date().year());
+        selectedTask->save();
+    }
+}
+
+void TaskList::on_task_clicked(Task * task)
+{
+    selectTask(task);
+}

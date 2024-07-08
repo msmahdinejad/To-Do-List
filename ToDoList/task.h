@@ -57,6 +57,16 @@ private slots:
 
     void on_star_stateChanged(int arg1);
 
+    void on_pushButton_clicked();
+
+    void on_star_clicked();
+
+    void on_check_clicked();
+
+signals:
+    void buttonClicked(Task * task);
+
+
 private:
     Ui::Task *ui;
 };
