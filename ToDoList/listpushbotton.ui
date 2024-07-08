@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
+    <width>310</width>
     <height>50</height>
    </rect>
   </property>
@@ -43,6 +43,43 @@ QPushButton:hover {
    <property name="geometry">
     <rect>
      <x>230</x>
+     <y>10</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color:rgba(255, 255, 255, 0); /* Sets the background color */
+    color: white; /* Sets the text color */
+    border-radius: 2px; /* Rounds the corners */
+    padding: 9px; /* Adds padding */
+    font-size: 14px; /* Sets the font size */
+}
+
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 150); /* Changes background color on hover */
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="im.qrc">
+     <normaloff>:/images/bin.png</normaloff>:/images/bin.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="print">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
      <y>10</y>
      <width>31</width>
      <height>31</height>

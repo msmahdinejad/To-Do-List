@@ -2,6 +2,11 @@
 #include "ui_tasklist.h"
 #include <QPushButton>
 #include <QDateTime>
+#include <QtWidgets>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPainter>
+
 
 TaskList::TaskList(QString name, QString User, QString color, int removable, QWidget *parent)
     : QWidget(parent)
@@ -284,4 +289,61 @@ void TaskList::on_Edit_clicked()
 void TaskList::on_task_clicked(Task * task)
 {
     selectTask(task);
+}
+
+void TaskList::printData()
+{
+    loadData();
+    QString fileName = QFileDialog::getSaveFileName(nullptr, "Export PDF", QString(), "*.pdf");
+    if (QFileInfo(fileName).suffix().isEmpty()) {
+        fileName.append(".pdf");
+    }
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setOutputFileName(fileName);
+
+    QTextDocument doc;
+    QString html = R"(
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { font-family: 'Arial', sans-serif; }
+                h1 { color: #4CAF50; }
+                p { font-size: 14px; }
+                .highlight { background-color: yellow; }
+                ul { list-style-type: disc; padding-left: 20px; }
+            </style>
+        </head>
+        <body>
+            <h2>
+    )";
+
+    html += name;
+
+    html += R"(</h2>
+            <ul>
+    )";
+
+    node<Task> * tmp = tasks->getHead();
+
+    while(tmp != 0)
+    {
+        node<Task> * tmp2 = tmp->getNext();
+        html += "<li>" + tmp->getData()->getName() + "</li>";
+        tmp = tmp2;
+    }
+
+    html += R"(
+            </ul>
+        </body>
+        </html>
+    )";
+
+    doc.setHtml(html);
+    doc.setPageSize(printer.pageLayout().paintRectPixels(printer.resolution()).size()); // تنظیم اندازه صفحه به اندازه صفحه چاپگر
+    doc.print(&printer);
+
 }

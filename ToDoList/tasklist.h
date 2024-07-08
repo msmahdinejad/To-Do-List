@@ -39,6 +39,7 @@ public:
     int & getRemovable();
     void selectTask(Task * temp);
     bool checkEditInputs();
+    void printData();
 
 
 private slots:

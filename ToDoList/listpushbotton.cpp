@@ -35,3 +35,9 @@ void listPushBotton::on_list_clicked()
     emit buttonClicked(taskList);
 }
 
+
+void listPushBotton::on_print_clicked()
+{
+    taskList->printData();
+}
+

@@ -25,6 +25,8 @@ private slots:
 
     void on_list_clicked();
 
+    void on_print_clicked();
+
 private:
     Ui::listPushBotton *ui;
     QWidget * Parent;
