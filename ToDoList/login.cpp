@@ -84,6 +84,11 @@ bool login::checkSignupInputs()
         QMessageBox::critical(this, "Error", "Username must be at least 8 characters!");
         return false;
     }
+    if(user.contains("/"))
+    {
+        QMessageBox::critical(this, "Error", "Username cant contain '/' !");
+        return false;
+    }
     if(pass.size() < 8)
     {
         QMessageBox::critical(this, "Error", "Password must be at least 8 characters!");

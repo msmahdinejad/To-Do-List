@@ -12,7 +12,14 @@ listPushBotton::listPushBotton(TaskList * tasklist, QWidget *parent)
         ui->deleteList->hide();
     else
         ui->deleteList->show();
-    ui->list->setText(tasklist->getName());
+    if(tasklist->getName().contains("/star"))
+        ui->list->setText("Important");
+    else if(tasklist->getName().contains("/AssignedToMe"))
+        ui->list->setText("Assigned To Me");
+    else if(tasklist->getName().contains("/IAssigned"))
+        ui->list->setText("I Assigned");
+    else
+        ui->list->setText(tasklist->getName());
     QString buttonStyle = QString("background-color: %1; color: white;").arg(tasklist->getColor());
     ui->list->setStyleSheet(buttonStyle);
 }

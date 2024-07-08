@@ -217,8 +217,7 @@ void TaskList::deleteTaskList()
     if (!query.exec()) {
         qDebug() << "Error removing list: " << query.lastError();
     }
-
-    hide();
+    this->hide();
 }
 QString & TaskList::getName(){return name;}
 QString & TaskList::getColor(){return color;}
@@ -246,7 +245,8 @@ void TaskList::selectTask(Task * temp)
     selectedTask = temp;
     ui->nameLineEdit->setText(temp->getName());
     ui->caption->setText(temp->getCaption());
-    ui->assignUser->setText(temp->getAssignUser());
+    if(temp->getAssignUser() != "/")
+        ui->assignUser->setText(temp->getAssignUser());
     QDate t(temp->getDay(), temp->getMonth(), temp->getYear());
     ui->dateEdit->setDate(t);
     ui->SelectedTask->show();
@@ -254,6 +254,33 @@ void TaskList::selectTask(Task * temp)
 
 bool TaskList::checkEditInputs()
 {
+    if(ui->nameLineEdit->text().isEmpty())
+    {
+        QMessageBox::critical(this, "Error", "Task must have a name!");
+        return false;
+    }
+    if(ui->assignUser->text().isEmpty())
+    {
+        return true;
+    }
+    DB = QSqlDatabase::addDatabase("QSQLITE");
+    DB.setDatabaseName("C:/saleh/UNI/AP/To Do List/uiap-final-project-msmahdinejad/Data.db");
+    if(!DB.open())
+        qDebug() << "DB in Tasklist failed!";
+    else
+        qDebug() << "DB in Tasklist opened!";
+    QSqlQuery query;
+    query.prepare("SELECT * FROM people WHERE username ='" + ui->assignUser->text() + "'");
+    if (!query.exec())
+    {
+        QMessageBox::critical(this, "Error", query.lastError().text());
+        return false;
+    }
+    if (!query.next())
+    {
+        QMessageBox::critical(this, "Error", "Username not found!");
+        return false;
+    }
     return true;
 }
 

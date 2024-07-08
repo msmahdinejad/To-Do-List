@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(UserData * mydata, QWidget *parent = nullptr);
     ~MainWindow();
+    bool checkInput();
 
 private slots:
     void on_tasklist_clicked(TaskList * taskList);

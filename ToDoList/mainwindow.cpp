@@ -28,6 +28,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+bool MainWindow::checkInput()
+{
+    if(ui->lineEdit->text().isEmpty())
+    {
+        QMessageBox::critical(this, "Error", "Task list must have a name!");
+        return false;
+    }
+    if(ui->lineEdit->text().contains("/"))
+    {
+        QMessageBox::critical(this, "Error", "Task list cant contains '/' !");
+        return false;
+    }
+    for(auto v = MyData->getLists()->begin(); v != MyData->getLists()->end(); v++)
+    {
+        if((*v)->getName() == ui->lineEdit->text())
+        {
+            QMessageBox::critical(this, "Error", "Task list name cant be repeated!");
+            return false;
+        }
+    }
+    return true;
+}
+
 void MainWindow::on_tasklist_clicked(TaskList * taskList)
 {
     ui->stackedWidget->insertWidget(1, taskList);
@@ -36,11 +59,14 @@ void MainWindow::on_tasklist_clicked(TaskList * taskList)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    QColor color = QColorDialog::getColor(Qt::white, this, "Choose Color");
-    MyData->addList(ui->lineEdit->text(), color.name());
-    auto v = MyData->getLists()->rbegin();
-    listPushBotton * temp = new listPushBotton(*v);
-    layout->addWidget(temp);
-    ui->scrollAreaWidgetContents->setLayout(layout);
+    if(checkInput())
+    {
+        QColor color = QColorDialog::getColor(Qt::white, this, "Choose Color");
+        MyData->addList(ui->lineEdit->text(), color.name());
+        auto v = MyData->getLists()->rbegin();
+        listPushBotton * temp = new listPushBotton(*v);
+        layout->addWidget(temp);
+        ui->scrollAreaWidgetContents->setLayout(layout);
+    }
 }
 
