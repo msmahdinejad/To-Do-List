@@ -170,7 +170,7 @@ void Task::on_check_clicked()
         } else {
             qDebug() << "Task not found or multiple tasks with the same ID";
         }
-        ui->name->setStyleSheet("QLabel { text-decoration: line-through; color: gray;}");
+        ui->name->setStyleSheet("QLabel { text-decoration: line-through; color: gray; background-color: rgba(255, 255, 255, 0);}");
     }
     else
     {

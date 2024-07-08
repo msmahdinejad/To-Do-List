@@ -156,7 +156,7 @@
      <property name="styleSheet">
       <string notr="true">/* Base style for QLineEdit */
 QLineEdit {
-    padding: 10px 15px; /* Adds internal padding for a comfortable text area */
+    padding: 8px; /* Adds internal padding for a comfortable text area */
     font-size: 16px; /* Sets the font size of the text */
     border-radius: 10px; /* Rounds the corners of the QLineEdit */
     border: 0.5px solid rgba(0, 0, 0, 100); /* Sets an initial transparent border */
@@ -243,7 +243,7 @@ QPushButton:hover {
      <property name="styleSheet">
       <string notr="true">/* Base style for QLineEdit */
 QLineEdit {
-    padding: 10px 15px; /* Adds internal padding for a comfortable text area */
+    padding: 8px; /* Adds internal padding for a comfortable text area */
     font-size: 16px; /* Sets the font size of the text */
     border-radius: 10px; /* Rounds the corners of the QLineEdit */
     border: 0.5px solid rgba(0, 0, 0, 100); /* Sets an initial transparent border */
@@ -387,7 +387,7 @@ color: rgb(255, 255, 255);
      <property name="styleSheet">
       <string notr="true">/* Base style for QLineEdit */
 QLineEdit {
-    padding: 10px 15px; /* Adds internal padding for a comfortable text area */
+    padding: 8px; /* Adds internal padding for a comfortable text area */
     font-size: 16px; /* Sets the font size of the text */
     border-radius: 10px; /* Rounds the corners of the QLineEdit */
     border: 0.5px solid rgba(0, 0, 0, 100); /* Sets an initial transparent border */
@@ -474,7 +474,7 @@ QPushButton:hover {
      <property name="styleSheet">
       <string notr="true">/* Base style for QLineEdit */
 QLineEdit {
-    padding: 10px 15px; /* Adds internal padding for a comfortable text area */
+    padding: 8px; /* Adds internal padding for a comfortable text area */
     font-size: 16px; /* Sets the font size of the text */
     border-radius: 10px; /* Rounds the corners of the QLineEdit */
     border: 0.5px solid rgba(0, 0, 0, 100); /* Sets an initial transparent border */
@@ -603,10 +603,6 @@ color: rgb(255, 255, 255);
   <tabstop>PasswordInSignup</tabstop>
   <tabstop>signupBotton</tabstop>
   <tabstop>LoginInSignup</tabstop>
-  <tabstop>PasswordInLogin_2</tabstop>
-  <tabstop>SignUpnInLogIn_2</tabstop>
-  <tabstop>usernameInLogIn_2</tabstop>
-  <tabstop>LoginButton_2</tabstop>
  </tabstops>
  <resources>
   <include location="im.qrc"/>

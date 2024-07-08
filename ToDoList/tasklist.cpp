@@ -22,6 +22,8 @@ TaskList::TaskList(QString name, QString User, QString color, int removable, QWi
     layout = new QVBoxLayout();
     ui->scrollAreaWidgetContents->setLayout(layout);
     ui->SelectedTask->hide();
+    QString style = QString("background-color: %1;").arg(color);
+    ui->back->setStyleSheet(style);
 }
 
 TaskList::~TaskList()

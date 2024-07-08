@@ -29,10 +29,7 @@ UserData::UserData(QString UserName)
     }
     for(auto v = lists->begin(); v != lists->end(); v++)
     {
-        if((*v)->getName().contains("/AssignedToMe") || (*v)->getRemovable() == 1)
-        {
-            (*v)->reminderCheck();
-        }
+        (*v)->reminderCheck();
     }
 }
 void UserData::addList(QString name, QString color)
