@@ -8,5 +8,6 @@
         <file>images/bin.png</file>
         <file>images/printing.png</file>
         <file>images/menu.png</file>
+        <file>images/logout.png</file>
     </qresource>
 </RCC>

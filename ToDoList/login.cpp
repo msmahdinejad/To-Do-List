@@ -150,7 +150,7 @@ void login::on_loginBotton_clicked()
     if(checkLoginInputs())
     {
         UserData * mydata = new UserData(ui->usernameInLogIn->text());
-        MainWindow * mainWindow = new MainWindow(mydata);
+        MainWindow * mainWindow = new MainWindow(mydata, this);
         mainWindow->show();
         DB.close();
         this->hide();

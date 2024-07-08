@@ -11,7 +11,9 @@ MainWindow::MainWindow(UserData * mydata, QWidget *parent)
     , MyData(mydata)
     , ui(new Ui::MainWindow)
 {
+    Parent = parent;
     ui->setupUi(this);
+    ui->label->setText(mydata->getUsername());
     layout = new QVBoxLayout();
     for(auto v = mydata->getLists()->begin(); v != mydata->getLists()->end(); v++)
     {
@@ -65,8 +67,18 @@ void MainWindow::on_pushButton_2_clicked()
         MyData->addList(ui->lineEdit->text(), color.name());
         auto v = MyData->getLists()->rbegin();
         listPushBotton * temp = new listPushBotton(*v);
+        connect(temp, &listPushBotton::buttonClicked, this, &MainWindow::on_tasklist_clicked);
         layout->addWidget(temp);
         ui->scrollAreaWidgetContents->setLayout(layout);
     }
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    MyData->getLists()->clear();
+    delete MyData;
+    Parent->show();
+    this->hide();
 }
 

@@ -25,8 +25,11 @@ private slots:
     void on_tasklist_clicked(TaskList * taskList);
     void on_pushButton_2_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     QVBoxLayout * layout;
+    QWidget * Parent;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

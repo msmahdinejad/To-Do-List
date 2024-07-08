@@ -24,6 +24,7 @@ public:
     void addList(QString name, QString color);
     void removeList(QString name);
     vector<TaskList *> * getLists();
+    QString & getUsername();
 };
 
 #endif // USERDATA_H

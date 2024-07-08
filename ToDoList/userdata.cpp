@@ -51,3 +51,4 @@ void UserData::removeList(QString name)
     }
 }
 vector<TaskList *> * UserData::getLists(){return lists;}
+QString & UserData::getUsername(){return username;}
