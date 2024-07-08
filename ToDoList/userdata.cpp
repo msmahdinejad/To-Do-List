@@ -27,6 +27,13 @@ UserData::UserData(QString UserName)
         lists->push_back(taskList);
         qDebug() << "list loaded succefully!";
     }
+    for(auto v = lists->begin(); v != lists->end(); v++)
+    {
+        if((*v)->getName().contains("/AssignedToMe") || (*v)->getRemovable() == 1)
+        {
+            (*v)->reminderCheck();
+        }
+    }
 }
 void UserData::addList(QString name, QString color)
 {

@@ -347,3 +347,20 @@ void TaskList::printData()
     doc.print(&printer);
 
 }
+
+void TaskList::reminderCheck()
+{
+    loadData();
+    node<Task> * tmp = tasks->getHead();
+    while(tmp != 0)
+    {
+        node<Task> * tmp2 = tmp->getNext();
+        if(tmp->getData()->getDay() == QDateTime::currentDateTime().date().day()
+            && tmp->getData()->getMonth() == QDateTime::currentDateTime().date().month()
+            && tmp->getData()->getYear() == QDateTime::currentDateTime().date().year())
+        {
+            QMessageBox::information(this, "Reminder", "Task <" + tmp->getData()->getName() + "> in list <" + tmp->getData()->getList() +"> ");
+        }
+        tmp = tmp2;
+    }
+}

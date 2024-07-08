@@ -102,6 +102,7 @@ void Task::setYear(int Year){year = Year;}
 void Task::setMonth(int Month){month = Month;}
 void Task::setDay(int Day){day = Day;}
 int & Task::getID(){return ID;}
+QString & Task::getList(){return list;}
 
 void Task::on_pushButton_clicked()
 {

@@ -40,6 +40,7 @@ public:
     void selectTask(Task * temp);
     bool checkEditInputs();
     void printData();
+    void reminderCheck();
 
 
 private slots:

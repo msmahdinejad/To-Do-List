@@ -51,6 +51,7 @@ public:
     void setMonth(int month);
     void setDay(int day);
     int & getID();
+    QString & getList();
 
 private slots:
     void on_check_stateChanged(int arg1);
